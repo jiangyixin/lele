@@ -7,6 +7,14 @@ h1, h2, h3, h4, h5, h6, p {
     margin: .25rem 0;
 }
 /* ------- common ------- */
+.content-copy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+}
 .fsb {
     display: -webkit-box;
     display: -webkit-flex;
@@ -74,6 +82,21 @@ h1, h2, h3, h4, h5, h6, p {
     margin: .25rem;
     background-color: #fafafa;
 }
+a.line-block {
+    display: block;
+    color: inherit;
+    background-color: #f0f0f0;
+    margin: .25rem;
+}
+a.line-block:hover,
+a.line-block:focus,
+a.line-block:active {
+    background-color: #e0e0e0;
+}
+ul.line-block {
+    background-color: inherit;
+    border: 1px solid #e0e0e0;
+}
 .button.button-gray {
     background-color: #C8C8C8;
     color: #000;
@@ -108,6 +131,10 @@ h1, h2, h3, h4, h5, h6, p {
     position: relative;
 }
 
+.d-b {
+    display: block;
+}
+
 .fs-5r {
     font-size: .5rem;
 }
@@ -121,6 +148,9 @@ h1, h2, h3, h4, h5, h6, p {
     font-size: .7rem;
 }
 
+.c-i {
+    color: inherit;
+}
 .c-f {
     color: #fff;
 }
@@ -194,6 +224,9 @@ h1, h2, h3, h4, h5, h6, p {
 .bb-c {
     border-bottom: 1px solid #ccc;
 }
+.bb-e0 {
+    border-bottom: 1px solid #e0e0e0;
+}
 .bdb-0 {
     border-bottom: 0;
 }
@@ -238,11 +271,14 @@ h1, h2, h3, h4, h5, h6, p {
     margin-right: .5rem;
 }
 
-.pd-0 {
-    padding: 0!important;
+.pl-15r {
+    padding-left: 1.5rem;
 }
 .pb-5 {
     padding-bottom: 5px;
+}
+.pd-0 {
+    padding: 0!important;
 }
 .pd-005 {
     padding: 0 .5rem;
@@ -265,7 +301,6 @@ h1, h2, h3, h4, h5, h6, p {
 .pd-0100 {
     padding: 1rem 0;
 }
-
 
 .h2rem {
     height: 2rem;
@@ -664,6 +699,12 @@ h1, h2, h3, h4, h5, h6, p {
 .form-theme-1.list-block .item-title.label {
     width: 40%;
 }
+.form-theme-2 {
+    margin-top: 0;
+}
+.form-theme-2.list-block .item-title.label {
+    width: 40%;
+}
 .form-row {
     position: relative;
     margin-bottom: .5rem;
@@ -719,6 +760,28 @@ h1, h2, h3, h4, h5, h6, p {
     line-height: 2rem;
     font-weight: bold;
     background-color: #bbb;
+}
+
+.form-row .input-scan {
+    position: relative;
+}
+
+.form-row .input-scan .form-input {
+    padding-right: 2rem;
+}
+.form-row .input-scan .btn-scan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 0;
+    width: 2rem;
+    line-height: 2rem;
+    color: #999;
+    font-size: 1.5rem;
 }
 
 /* ------- owner ------- */
@@ -832,10 +895,12 @@ h1, h2, h3, h4, h5, h6, p {
     margin-top: 0;
 }
 .vehicle-item {
+    display: block;
     padding: 0;
     background-color: #fff;
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
+    color: inherit;
 }
 .vehicle-item .item-head {
     padding: .5rem 1rem;

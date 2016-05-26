@@ -3,28 +3,112 @@
  */
 
 var lele = (function(my) {
-        'use strict';
-        var vehicle = {
-            id: '',
-            owner: '',
-            sex: '',
-            birthday: '',
-            phone: '',
-            license_head: '',
-            license_code: '',
-            city_id: '',
-            city_name: '',
-            chassis: '',
-            engine: '',
-            insurance_id: '',
-            insurance_name: '',
-            insurance_endtime: ''
-        };
-        my.bindHeaderEvent = function ($page) {
+    'use strict';
 
+    // 获取表单数据 并进行不为空验证
+    my.checkIn = function ($form) {
+        var obj = new Object();
+        var check = '';
+        $form.find('[name]').each(function () {
+            var name = $(this).attr('name');
+            var val = $(this).val();
+            var required = $(this).attr('required');
+            if (!val && required) {
+                check = required || $(this).attr('placeholder');
+                return false;
+            }
+            if (val) {
+                obj[name] = val;
+            }
+        });
+        if (check) {
+            $.alert(check);
+            return check;
+        } else {
+            return obj;
         }
-        return my;
-    }(lele || {}))
+    };
+
+    my.ajaxLoad = function (url, data, callback) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            dataType: 'json',
+            timeout: 300,
+            success: function(data){
+                callback(data);
+            },
+            error: function(xhr, type){
+                $.alert('加载失败！');
+            }
+        });
+    };
+    my.getPointItem = function (list) {
+        var html = '';
+        for (var i=0; i<list.length; i++) {
+            html += '<li>' +
+                '<a href="#" class="point-link">' +
+                '<h4>'+ list[i].name +'</h4>' +
+                '<p>'+ list[i].company +'</p>' +
+                '<p>门店地址：'+ list[i].address +'</p>' +
+                '<p>电话：'+ list[i].phone +'</p>' +
+                '</a>' +
+                '</li>';
+        }
+        return html;
+    };
+    my.getReserveItem = function (list, type) {
+        var html = '';
+        for (var i=0; i<list.length; i++) {
+            html += '<a href="#" class="owner-item">';
+            html += '<div class="row">\
+                        <div class="col-30 item-left">预约时间：</div>\
+                        <div class="col-70 item-right">'+ list[i].time +'</div>\
+                    </div>\
+                    <div class="row">\
+                        <div class="col-30 item-left">联系人：</div>\
+                    <div class="col-70 item-right">'+ list[i].name +'</div>\
+                        </div>\
+                        <div class="row">\
+                        <div class="col-30 item-left">联系电话：</div>\
+                    <div class="col-70 item-right">'+ list[i].phone +'</div>\
+                        </div>\
+                    <div class="row">\
+                        <div class="col-30 item-left">车型：</div>\
+                        <div class="col-70 item-right">'+ list[i].car +'</div>\
+                    </div>';
+            html += '</a>';
+        }
+        return html;
+    };
+    my.getCompleteItem = function (list, type) {
+        var html = '';
+        for (var i=0; i<list.length; i++) {
+            html += '<div class="owner-item">';
+            html += '<div class="row">\
+                        <div class="col-30 item-left">预约时间：</div>\
+                        <div class="col-70 item-right">'+ list[i].time +'</div>\
+                    </div>\
+                    <div class="row">\
+                        <div class="col-30 item-left">联系人：</div>\
+                    <div class="col-70 item-right">'+ list[i].name +'</div>\
+                        </div>\
+                        <div class="row">\
+                        <div class="col-30 item-left">联系电话：</div>\
+                    <div class="col-70 item-right">'+ list[i].phone +'</div>\
+                        </div>\
+                    <div class="row">\
+                        <div class="col-30 item-left">车型：</div>\
+                        <div class="col-70 item-right">'+ list[i].car +'</div>\
+                    </div>';
+            html += '</div>';
+        }
+        return html;
+    };
+
+    return my;
+}(lele || {}));
 
 ;(function ($) {
     'use strict';
@@ -138,25 +222,180 @@ var lele = (function(my) {
 
                 });
                 break;
-            case 'service-point-index':
+            /* ------------------------------- 服务点选择 ------------------------------- */
+            case 'service-point':
+                var $form = $('#form-service-login');
                 var $picker = $("#picker-city");
-                $picker.serviceCityPicker({
-                    value: ['广东', '深圳'],
-                    formatValue: function (picker, value, displayValue){
-                        $picker.find('[name="province"]').html(value[0]);
-                        $picker.find('[name="city"]').html(value[1]);
-                        return null;
+                // 初始化城市选择
+                var codeList = [
+                    $picker.find('[name="province"]').attr('data-code'),
+                    $picker.find('[name="city"]').attr('data-code')
+                ];
+                var url = 'data.json';
+                // 初始化数据
+                lele.ajaxLoad(url, null, function (data) {
+                    var html = lele.getPointItem(data.list);
+                    $page.find('.point-list').html(html);
+                });
+                $page.on('click', '#login', function () {
+                    var result =  lele.checkIn($form);
+                    // var result = $form.serializeArray();
+                    if (typeof result == 'object') {
+                        $form.submit();
                     }
                 });
+                $picker.serviceCityPicker({
+                    // displayValue: ['广东', '深圳'],
+                    // value: ['02', '0004'],
+                    formatValue: function (picker, value, displayValue){
+                        $picker.find('[name="province"]').html(displayValue[0]);
+                        $picker.find('[name="province"]').attr('data-code', value[0]);
+                        $picker.find('[name="city"]').html(displayValue[1]);
+                        $picker.find('[name="city"]').attr('data-code', value[1]);
+                        return null;
+                    },
+                    onClose: function (picker) {
+                        console.log(picker.cols[0].value);
+                        console.log(picker.cols[1].value);
+                        lele.ajaxLoad(url, null, function (data) {
+                            var html = lele.getPointItem(data.list);
+                            $page.find('.point-list').html(html);
+                        });
+                    }
+                });
+
+                // 底部无线滚动
+                var loading = false;
+                // 每次加载添加多少条目
+                var itemsPerLoad = 10;
+                // 最多可加载的条目
+                var maxItems = 100;
+                var lastIndex = $page.find('.point-list li').length;
+                // 数据不足不进行无限加载
+                if (lastIndex < itemsPerLoad) {
+                    $.detachInfiniteScroll($('.infinite-scroll'));
+                    // 删除加载提示符
+                    $('.infinite-scroll-preloader').remove();
+                } else {
+                    $page.on('infinite', function() {
+                        // 如果正在加载，则退出
+                        if (loading) return;
+                        // 设置flag
+                        loading = true;
+                        lele.ajaxLoad(url, null, function (data) {
+                            // 重置加载flag
+                            loading = false;
+                            var html = lele.getPointItem(data.list);
+                            $page.find('.point-list').append(html);
+                            // 更新最后加载的序号
+                            lastIndex = $page.find('.point-list li').length;
+                            $.refreshScroller();
+                            if (lastIndex >= maxItems) {
+                                // 加载完毕，则注销无限加载事件，以防不必要的加载
+                                $.detachInfiniteScroll($('.infinite-scroll'));
+                                // 删除加载提示符
+                                $('.infinite-scroll-preloader').remove();
+                                return;
+                            }
+                        });
+                    });
+                }
+
                 break;
-            case 'service-check-index':
+            /* ------------------------------- 服务点预约详情 ------------------------------- */
+            case 'service-check':
+                var $form = $('#form-service-edit');
+                var $reserving = $('#reserving');
+                var $complete = $('#complete');
+                var reservingUrl = 'serviceList.json';
+                var completeUrl = 'serviceList.json';
+                
                 $page.on('click', '#help', function () {
                     $.confirm('如需其他帮助，请致电客服0755-545455', function () {
                         window.location = 'tel:0755-545455';
                     });
                 });
+                $page.on('click', '#save', function () {
+                    var result = lele.checkIn($form);
+                    if (typeof result == 'object') {
+                        $form.submit();
+                    }
+                });
+
+                // 底部无线滚动
+                var loading = false;
+                // 每次加载添加多少条目
+                var itemsPerLoad = 10;
+                // 最多可加载的条目
+                var maxItems = 100;
+                var reservingLastIndex = $reserving.find('.owners-list .owner-item').length;
+                var completeLastIndex = $complete.find('.owners-list .owner-item').length;
+
+                // 数据不足不进行无限加载
+                if (reservingLastIndex < itemsPerLoad) {
+                    // 加载完毕，则注销无限加载事件，以防不必要的加载
+                    $.detachInfiniteScroll($reserving);
+                    // 删除加载提示符
+                    $reserving.find('.infinite-scroll-preloader').remove();
+                } else {
+                    $reserving.on('infinite', function () {
+                        console.log('reserving-----infinite');
+                        // 如果正在加载，则退出
+                        if (loading) return;
+                        // 设置flag
+                        loading = true;
+                        lele.ajaxLoad(url, null, function (data) {
+                            // 重置加载flag
+                            loading = false;
+                            var html = lele.getReserveItem(data.list);
+                            $reserving.find('.owners-list').append(html);
+                            // 更新最后加载的序号
+                            reservingLastIndex = $reserving.find('.owners-list .owner-item').length;
+                            $.refreshScroller();
+                            if (reservingLastIndex >= maxItems) {
+                                // 加载完毕，则注销无限加载事件，以防不必要的加载
+                                $.detachInfiniteScroll($reserving);
+                                // 删除加载提示符
+                                $reserving.find('.infinite-scroll-preloader').remove();
+                                return;
+                            }
+                        });
+                    });
+                }
+                // 数据不足不进行无限加载
+                if (completeLastIndex < itemsPerLoad) {
+                    // 加载完毕，则注销无限加载事件，以防不必要的加载
+                    $.detachInfiniteScroll($complete);
+                    // 删除加载提示符
+                    $complete.find('.infinite-scroll-preloader').remove();
+                } else {
+                    $complete.on('infinite', function () {
+                        console.log('reserving-----infinite');
+                        // 如果正在加载，则退出
+                        if (loading) return;
+                        // 设置flag
+                        loading = true;
+                        lele.ajaxLoad(url, null, function (data) {
+                            // 重置加载flag
+                            loading = false;
+                            var html = lele.getCompleteItem(data.list);
+                            $complete.find('.owners-list').append(html);
+                            // 更新最后加载的序号
+                            completeLastIndex = $complete.find('.owners-list .owner-item').length;
+                            $.refreshScroller();
+                            if (completeLastIndex >= maxItems) {
+                                // 加载完毕，则注销无限加载事件，以防不必要的加载
+                                $.detachInfiniteScroll($complete);
+                                // 删除加载提示符
+                                $complete.find('.infinite-scroll-preloader').remove();
+                                return;
+                            }
+                        });
+                    });
+                }
 
                 break;
+            
             case 'owner-reserve-list':
                 var $picker = $("#picker-service-city");
                 $picker.serviceCityPicker({

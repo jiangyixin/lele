@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="broadin.cn" />
+    <!-- 静止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no" />
+    <!-- iphone设备中的safari私有meta标签 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- iphone的私有标签样式 default（白色），可以定为black（黑色）和black-translucent（灰色半透明） -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- 个性化的link标签，它支持用户将网页创建快捷方式到桌面时,其图标变为我们自己定义的图标 -->
+    <link rel="apple-touch-icon.png" href="http://*.png">
+    <title>乐me服务点</title>
+    <link rel="stylesheet" href="/lele/app/sui-mobile/css/sm.css">
+    <link rel="stylesheet" href="/lele/app/sui-mobile/css/sm-extend.css">
+    <link rel="stylesheet" href="/lele/app/src/css/lele.css">
+</head>
+<body  ontouchstart="">
+    <div class="page-group">
+        <div class="page" id="service-point">
+            <div class="bgc-f">
+                <div class="buttons-tab fixed-tab btn-tab-1" data-offset="0">
+                    <a href="#sp-list" class="tab-link active button">服务点&nbsp;<span class="sub">(5461)</span></a>
+                    <a href="#sp-login" class="tab-link button">服务点登录</a>
+                </div>
+                <div class="">
+                    <div class="tabs">
+                        <div id="sp-list" class="tab content infinite-scroll infinite-scroll-bottom active" data-distance="50" style="margin-top: 2rem">
+                            <div class="point-block ">
+                                <div id="picker-city" class="sub-tab city-select row no-gutter">
+                                    <div class="col-50">
+                                        <span name="province" data-code="02">广东</span>
+                                    </div>
+                                    <div class="col-50">
+                                        <span name="city" data-code="0004">深圳</span>
+                                    </div>
+                                </div>
+                                <ul class="point-list">
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="point-link">
+                                            <h4>深圳保安前进二路点</h4>
+                                            <p>深圳市力众汽车有限公司</p>
+                                            <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                            <p>电话：0123456789</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- 加载提示符 -->
+                                <div class="infinite-scroll-preloader">
+                                    <div class="preloader"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sp-login" class="content tab" style="margin-top: 2rem">
+                            <div class="content-block">
+                                <h2 class="login-title">马上登录</h2>
+                                <form id="form-service-login" action="#" method="post" class="form-theme-1">
+                                    <div class="form-row">
+                                        <p class="mb-5"><label for="">账号</label></p>
+                                        <input type="number" name="" required="账号不能为空"  class="form-input" placeholder="请输入账号">
+                                    </div>
+                                    <div class="form-row">
+                                        <p class="mb-5"><label for="">密码</label></p>
+                                        <input type="password" name="pwd" required="密码不能为空" class="form-input" placeholder="请输入密码">
+                                    </div>
+                                    <div class="form-row tc mt-60">
+                                        <button id="login" type="button" class="form-btn button button-fill button-success">登录</button>
+                                    </div>
+                                    <div class="form-row tc mt-30">
+                                        <a class="form-link" href="#">忘记密码</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='/lele/app/zepto/zepto.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/lele/app/sui-mobile/js/sm.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/lele/app/sui-mobile/js/sm-extend.js' charset='utf-8'></script>
+    <script type='text/javascript' src="/lele/app/sui-mobile/js/my-city-picker.js"></script>
+    <script src="/lele/app/src/js/lele.js" charset="utf-8"></script>
+    <script>
+
+    </script>
+</body>
+</html>

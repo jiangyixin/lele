@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="broadin.cn" />
+    <!-- 静止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no" />
+    <!-- iphone设备中的safari私有meta标签 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- iphone的私有标签样式 default（白色），可以定为black（黑色）和black-translucent（灰色半透明） -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- 个性化的link标签，它支持用户将网页创建快捷方式到桌面时,其图标变为我们自己定义的图标 -->
+    <link rel="apple-touch-icon.png" href="http://*.png">
+    <title>乐me车娱宝安装</title>
+    <link rel="stylesheet" href="/lele/app/sui-mobile/css/sm.css">
+    <link rel="stylesheet" href="/lele/app/sui-mobile/css/sm-extend.css">
+    <link rel="stylesheet" href="/lele/app/src/css/lele.css">
+</head>
+<body  ontouchstart="">
+    <div class="page-group">
+        <div class="page" id="service-confirm">
+            <div class="content bgc-f3">
+                <div class="tc c-red pd-025r">
+                    <p class="">确认安装信息，输入提货验证码</p>
+                </div>
+                <div class="point-block outset-block">
+                    <ul class="point-list">
+                        <li>
+                            <a href="#" class="point-link">
+                                <h4>深圳保安前进二路点</h4>
+                                <p>深圳市力众汽车有限公司</p>
+                                <p>门店地址：凤凰岗第一工业区中山路29号</p>
+                                <p>电话：0123456789</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="list-block outset-block pd-0100 bgc-f">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label tr">提货卡号：</div>
+                                    <div class="item-input">
+                                        <input type="text" disabled placeholder="提货卡号" value="316512361561320" >
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label tr">联系人：</div>
+                                    <div class="item-input">
+                                        <input type="text" disabled placeholder="你的名字" value="张三">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label tr">联系电话：</div>
+                                    <div class="item-input">
+                                        <input type="number" disabled placeholder="你的电话" value="0123456789">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="outset-block bgc-f" style="padding: .6rem 1.5rem 2rem 1.5rem">
+                    <div class="form-row">
+                        <p class="mb-5"><label for="">输入安装码：</label></p>
+                        <div class="input-scan">
+                            <input type="text" class="form-input" placeholder="提货验证码">
+                            <a href="javascript:;" id="scan" class="btn-scan"><i class="icon icon-code"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="default-block row no-gutter mt-15">
+                    <div class="col-20">&nbsp;</div>
+                    <div class="col-60"><a href="success.html" class="button button-middle button-fill button-success">确认信息</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='/lele/app/zepto/zepto.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/lele/app/sui-mobile/js/sm.js' charset='utf-8'></script>
+    <script type='text/javascript' src='/lele/app/sui-mobile/js/sm-extend.js' charset='utf-8'></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="utf-8"></script>
+    <script type='text/javascript' src="/lele/app/sui-mobile/js/my-city-picker.js"></script>
+    <script src="/lele/app/src/js/lele.js" charset="utf-8"></script>
+    <script>
+
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{$config.appId}', // 必填，公众号的唯一标识
+            timestamp:'{$config.timeStamp}' , // 必填，生成签名的时间戳
+            nonceStr: '{$config.nonceStr}', // 必填，生成签名的随机串
+            signature: '{$config.signature}',// 必填，签名，见附录1
+            jsApiList: ['chooseImage','uploadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function(){
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            wx.scanQRCode({
+                needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                    console.log(result);
+                }
+            });
+        });
+        wx.error(function(res){
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });
+
+    </script>
+</body>
+</html>
